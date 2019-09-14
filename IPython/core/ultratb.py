@@ -98,6 +98,11 @@ import traceback
 
 import stack_data
 
+try:  # Python 2
+    generate_tokens = tokenize.generate_tokens
+except AttributeError:  # Python 3
+    generate_tokens = tokenize.tokenize
+
 # IPython's own modules
 from IPython import get_ipython
 from IPython.core import debugger
@@ -148,10 +153,13 @@ def _format_traceback_lines(lines, Colors, lvals, _line_format):
     res = []
 
     for stack_line in lines:
+<<<<<<< HEAD
         if stack_line is stack_data.LINE_GAP:
             res.append('%s   (...)%s\n' % (Colors.linenoEm, Colors.Normal))
             continue
 
+=======
+>>>>>>> Initial integration of stack_data
         line = stack_line.text.rstrip('\n') + '\n'
 
         new_line, err = _line_format(line, 'str')
@@ -640,7 +648,11 @@ class VerboseTB(TBTools):
         lvals_list = []
         if self.include_vars:
             for var in frame_info.variables_in_executing_piece:
+<<<<<<< HEAD
                 lvals_list.append(tpl_name_val % (var.name, repr(var.value)))
+=======
+                lvals_list.append(tpl_name_val % (var.name, var.value))
+>>>>>>> Initial integration of stack_data
         if lvals_list:
             lvals = '%s%s' % (indent, em_normal.join(lvals_list))
 
